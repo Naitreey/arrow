@@ -16,7 +16,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-export BZ2_VERSION="1.0.6"
+export BZ2_VERSION="1.0.8"
 export CFLAGS="-Wall -Winline -O2 -fPIC -D_FILE_OFFSET_BITS=64"
 
 curl -sL "https://www.sourceware.org/pub/bzip2/bzip2-${BZ2_VERSION}.tar.gz" -o bzip2-${BZ2_VERSION}.tar.gz

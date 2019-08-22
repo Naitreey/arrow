@@ -326,6 +326,9 @@ services:
       dockerfile: python/Dockerfile.alpine
       args:
         PYTHON_VERSION: ${PYTHON_VERSION:-3.6}
+    environment:
+      PYARROW_WITH_PARQUET: 1
+      http_proxy: http://172.17.0.1:8118
     volumes: *alpine-volumes
 
   python-nopandas:

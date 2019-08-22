@@ -19,6 +19,8 @@ FROM arrow:cpp-alpine
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+ARG INDEX_URL=https://mirrors.aliyun.com/pypi/simple/
+
 # better compatibility for the scripts
 RUN apk add --no-cache coreutils
 
@@ -29,15 +31,15 @@ RUN export PYTHON_MAJOR=${PYTHON_VERSION:0:1} && \
     python${PYTHON_MAJOR} -m ensurepip && \
     ln -sf /usr/bin/pip${PYTHON_MAJOR} /usr/bin/pip && \
     ln -sf /usr/bin/python${PYTHON_MAJOR} /usr/bin/python && \
-    pip install --upgrade pip setuptools
+    pip install --index-url "${INDEX_URL}" --upgrade pip setuptools
 
 # install python requirements
 COPY python/requirements.txt \
      python/requirements-test.txt \
      /arrow/python/
 # pandas requires numpy at build time, so install the requirements separately
-RUN pip install -r /arrow/python/requirements.txt cython && \
-    pip install -r /arrow/python/requirements-test.txt
+RUN pip install --index-url "${INDEX_URL}" -r /arrow/python/requirements.txt cython && \
+    pip install --index-url "${INDEX_URL}" -r /arrow/python/requirements-test.txt
 
 ENV ARROW_PYTHON=ON \
     PYARROW_WITH_ORC=0 \

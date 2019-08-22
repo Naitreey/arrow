@@ -15,11 +15,13 @@
 # specific language governing permissions and limitations
 # under the License.
 
-FROM alpine:3.9
+FROM alpine:3.10
+
+RUN echo -en "https://mirrors.ustc.edu.cn/alpine/v3.10/main\nhttps://mirrors.ustc.edu.cn/alpine/v3.10/community\n" > /etc/apk/repositories
 
 # Install basic build dependencies
 # grpc requires libnsl-dev to be present, this cannot be installed via a bundle.
-RUN apk add --no-cache -q \
+RUN apk add --no-cache \
         autoconf \
         bash \
         bison \
